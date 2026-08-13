@@ -188,30 +188,115 @@ background-color: #d95980;
 }
 
 
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
+
+    body {
+        padding-top: 20px;
+        overflow-x: hidden;
+    }
+
+    h1 {
+        font-size: 32px;
+        margin: 10px 0;
+    }
+
+    h2 {
+        font-size: 16px;
+        margin: 8px 0 15px;
+    }
+
+    #startBtn {
+        padding: 10px 25px;
+        font-size: 16px;
+    }
+
+    .btn-container {
+        transform: scale(0.75);
+        transform-origin: top center;
+        margin-bottom: -80px;
+    }
+
+    .btn {
+        width: 140px;
+        height: 140px;
+        margin: 12px;
+        border-width: 7px;
+    }
+
+    #menuBtn {
+        top: 10px;
+        right: 12px;
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+    }
 
     .how-to-play {
-        width: 85%;
-        padding: 16px;
-        margin: 20px auto;
+        top: 60px;
+        right: 10px;
+        width: 280px;
+        max-width: calc(100vw - 40px);
+    }
+} */
+ @media (max-width: 600px) {
+
+    body {
+        min-height: 100vh;
+        width: 100%;
+        margin: 0;
+        padding: 15px 0;
+        overflow-x: hidden;
+        box-sizing: border-box;
     }
 
-    .how-to-play h3 {
-        font-size: 20px;
+    h1 {
+        font-size: 32px;
+        margin: 10px 0;
     }
 
-    .rule {
-        padding: 7px 9px;
+    h2 {
+        font-size: 16px;
+        margin: 8px 15px 15px;
     }
 
-    .rule span {
-        width: 28px;
-        height: 28px;
-        font-size: 13px;
+    #startBtn {
+        padding: 10px 25px;
+        font-size: 16px;
     }
 
-    .rule p {
-        font-size: 13px;
+    .btn-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transform: none;
+    }
+
+    .line-one,
+    .line-two {
+        display: flex;
+        justify-content: center;
+    }
+
+    .btn {
+        width: 120px;
+        height: 120px;
+        margin: 8px;
+        border-width: 6px;
+    }
+
+    #menuBtn {
+        top: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+    }
+
+    .how-to-play {
+        top: 60px;
+        right: 10px;
+        width: 280px;
+        max-width: calc(100vw - 40px);
     }
 }
 #menuBtn {
