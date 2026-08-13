@@ -28,3 +28,10 @@ background-color: #d95980;
 .flash{
     background-color: white;
 }
+#startBtn {
+    padding: 12px 25px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: 2px solid black;
+    cursor: pointer;
+}

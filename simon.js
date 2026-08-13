@@ -9,13 +9,26 @@ let level  = 0;
 
 let h2 = document.querySelector("h2");
 
-document.addEventListener("keypress" , function() {
-    if (started == false){
+
+let startBtn = document.querySelector("#startBtn");
+
+startBtn.addEventListener("click", function() {
+
+    if (started == false) {
         console.log("game is started");
         started = true;
         levelup();
+        startBtn.style.display = "none";
     }
+
 });
+// document.addEventListener("keypress" , function() {
+//     if (started == false){
+//         console.log("game is started");
+//         started = true;
+//         levelup();
+//     }
+// });
 
 function btnFlash(btn){
     btn.classList.add("flash");
@@ -67,13 +80,13 @@ function btnPress(){
     let btn = this;
     userflash(btn);
 
-    usercolor = btn.getAttribute("id");
+    let usercolor = btn.getAttribute("id");
     userseq.push(usercolor); 
     
     checkAns(userseq.length -1);
 }
   let allBtns = document.querySelectorAll(".btn");
-  for (btn of allBtns){
+  for (let btn of allBtns){
     btn.addEventListener("click", btnPress);
 }
 
