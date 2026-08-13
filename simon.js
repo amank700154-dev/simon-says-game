@@ -96,3 +96,11 @@ function reset(){
     userseq = [];
     level = 0; 
 }
+let menuBtn = document.querySelector("#menuBtn");
+let howToPlay = document.querySelector("#howToPlay");
+
+menuBtn.addEventListener("click", function () {
+
+    howToPlay.classList.toggle("show");
+
+});
