@@ -60,21 +60,45 @@ function levelup(){
     btnFlash(randBtn);  
 }
 
-function checkAns(idx){
-   if (userseq[idx] === gamseq[idx]){
-      if(userseq.length === gamseq.length){
-        setTimeout(levelup , 1000);
-      }
-   } else{
-    h2.innerHTML= `Game is over!  your score was <b> ${level} </b> <br>Press any key to restart`;
-    document.querySelector("body").style.borderColor = "red";
-    setTimeout(function () {
-           document.querySelector("body").style.backgroundColor = "white";
- 
-    },150);
-    reset();
-   }  
+
+function checkAns(idx) {
+
+    if (userseq[idx] === gamseq[idx]) {
+
+        if (userseq.length === gamseq.length) {
+            setTimeout(levelup, 1000);
+        }
+
+    } else {
+
+        h2.innerHTML = `Game is over! Your score was <b>${level}</b>`;
+
+        document.querySelector("body").style.backgroundColor = "red";
+
+        setTimeout(function () {
+            document.querySelector("body").style.backgroundColor = "white";
+        }, 150);
+
+        startBtn.style.display = "inline-block";
+
+        reset();
+    }
 }
+// function checkAns(idx){
+//    if (userseq[idx] === gamseq[idx]){
+//       if(userseq.length === gamseq.length){
+//         setTimeout(levelup , 1000);
+//       }
+//    } else{
+//     h2.innerHTML= `Game is over!  your score was <b> ${level} </b> <br>Press any key to restart`;
+//     document.querySelector("body").style.borderColor = "red";
+//     setTimeout(function () {
+//            document.querySelector("body").style.backgroundColor = "white";
+ 
+//     },150);
+//     reset();
+//    }  
+// }
 
 function btnPress(){
     let btn = this;
