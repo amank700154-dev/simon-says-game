@@ -3,61 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="description" content="Aman Kumar's Simon Says memory game. Watch the sequence and repeat it to reach the next level.">
+    <title>Simon Says Game | Aman Kumar</title>
     <link rel="stylesheet" href="style2.css">
 </head>
 <body>
-<h1>Simon Says Game</h1>
-<h2>Press the button to start the game</h2>
+    <main class="game-shell">
+        <header class="page-header">
+            <h1>Simon Says Game</h1>
+            <p class="intro">Watch the sequence, then repeat it in the same order.</p>
+        </header>
 
-<button id="startBtn">Start Game</button>
-<!-- Three dot menu -->
-<button id="menuBtn">⋮</button>
+        <button id="menuBtn" type="button" aria-label="Open game instructions"
+                aria-controls="howToPlay" aria-expanded="false">⋮</button>
 
-<!-- How to Play -->
-<div class="how-to-play" id="howToPlay">
-    <h3>🎮 How to Play</h3>
+        <aside class="how-to-play" id="howToPlay" aria-hidden="true">
+            <h2>How to Play</h2>
+            <ol>
+                <li>Press <strong>Start Game</strong> to begin.</li>
+                <li>Watch the complete sequence of flashes.</li>
+                <li>Repeat the sequence by activating the same buttons.</li>
+                <li>Each level adds one new colour to the sequence.</li>
+                <li>A wrong choice ends the game.</li>
+            </ol>
+        </aside>
 
-    <div class="rule">
-        <span>1</span>
-        <p>Click <b>Start Game</b> to begin.</p>
-    </div>
+        <section class="game-controls" aria-label="Game controls">
+            <p id="gameStatus" class="game-status" aria-live="polite" aria-atomic="true">
+                Press Start Game when you're ready.
+            </p>
+            <button id="startBtn" type="button">Start Game</button>
+        </section>
 
-    <div class="rule">
-        <span>2</span>
-        <p>Watch which button flashes 👀</p>
-    </div>
-
-    <div class="rule">
-        <span>3</span>
-        <p>Click the same button 🎯</p>
-    </div>
-
-    <div class="rule">
-        <span>4</span>
-        <p>Remember the sequence 🧠</p>
-    </div>
-
-    <div class="rule">
-        <span>5</span>
-        <p>Repeat the sequence correctly!</p>
-    </div>
-
-    <div class="rule game-over-rule">
-        <span>⚡</span>
-        <p>Wrong button = <b>GAME OVER!</b></p>
-    </div>
-</div>
-    <div class="btn-container">
-        <div class="line-one"> 
-            <div class="btn red" type=" button" id="red">1</div>
-            <div class="btn yellow " type="button" id="yellow">2</div>
-        </div>
-        <div class="line-two">
-            <div class="btn green" id="green">3</div>
-            <div class="btn purple" id="purple">4</div>
-        </div>
-    </div>
+        <section class="btn-container" aria-label="Simon Says game board">
+            <div class="line-one">
+                <button class="btn red" type="button" id="red" aria-label="Red game button">1</button>
+                <button class="btn yellow" type="button" id="yellow" aria-label="Yellow game button">2</button>
+            </div>
+            <div class="line-two">
+                <button class="btn green" type="button" id="green" aria-label="Green game button">3</button>
+                <button class="btn purple" type="button" id="purple" aria-label="Purple game button">4</button>
+            </div>
+        </section>
+    </main>
     <script src="simon.js"></script>
 </body>
 </html>
