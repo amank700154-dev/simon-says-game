@@ -25,6 +25,7 @@ async function playSequence() {
     isShowingSequence = true;
     statusText.textContent = "Watch the sequence.";
     for (const color of gameSequence) {
+        statusText.textContent = `Watch the ${color} button.`;
         const button = document.getElementById(color);
         flashButton(button, "flash", 350);
         await wait(550);
@@ -43,6 +44,7 @@ function startGame() {
 }
 
 async function nextLevel() {
+    isShowingSequence = true;
     userSequence.length = 0;
     level += 1;
     const nextColor = colors[Math.floor(Math.random() * colors.length)];
@@ -75,6 +77,7 @@ function handlePlayerMove(event) {
     }
 
     if (userSequence.length === gameSequence.length) {
+        isShowingSequence = true;
         statusText.textContent = `Correct! Get ready for level ${level + 1}.`;
         window.setTimeout(nextLevel, 850);
     }
