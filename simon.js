@@ -1,130 +1,95 @@
-let gamseq = [];
-let userseq = [];
-let btns = ['yellow' , 'red' , 'purple' , 'green'];
-
+const gameSequence = [];
+const userSequence = [];
+const colors = ["yellow", "red", "purple", "green"];
 
 let started = false;
-let level  = 0;
+let level = 0;
+let isShowingSequence = false;
 
+const statusText = document.querySelector("#gameStatus");
+const startButton = document.querySelector("#startBtn");
+const menuButton = document.querySelector("#menuBtn");
+const instructions = document.querySelector("#howToPlay");
+const gameButtons = document.querySelectorAll(".btn");
 
-let h2 = document.querySelector("h2");
+function flashButton(button, className = "flash", duration = 350) {
+    button.classList.add(className);
+    window.setTimeout(() => button.classList.remove(className), duration);
+}
 
+function wait(ms) {
+    return new Promise(resolve => window.setTimeout(resolve, ms));
+}
 
-let startBtn = document.querySelector("#startBtn");
-
-startBtn.addEventListener("click", function() {
-
-    if (started == false) {
-        console.log("game is started");
-        started = true;
-        levelup();
-        startBtn.style.display = "none";
+async function playSequence() {
+    isShowingSequence = true;
+    statusText.textContent = "Watch the sequence.";
+    for (const color of gameSequence) {
+        const button = document.getElementById(color);
+        flashButton(button, "flash", 350);
+        await wait(550);
     }
-
-});
-// document.addEventListener("keypress" , function() {
-//     if (started == false){
-//         console.log("game is started");
-//         started = true;
-//         levelup();
-//     }
-// });
-
-function btnFlash(btn){
-    btn.classList.add("flash");
-    setTimeout(function() {
-        btn.classList.remove("flash");
-    } , 250);
+    isShowingSequence = false;
+    statusText.textContent = "Your turn. Repeat the sequence.";
 }
 
-function userflash(btn){
-btn.classList.add("userflash");
-setTimeout(function () {
-    btn.classList.remove("userflash");
-} , 250);
+function startGame() {
+    gameSequence.length = 0;
+    userSequence.length = 0;
+    level = 0;
+    started = true;
+    startButton.hidden = true;
+    nextLevel();
 }
 
-
-function levelup(){
-    userseq= [];
-    level++;
-    h2.innerText = `level ${level}`;
-    let randIdx = Math.floor(Math.random() * 4);
-    let randcolor = btns[randIdx];
-    let randBtn = document.querySelector(`.${randcolor}`);
-    gamseq.push(randcolor);
-    console.log(gamseq);
-    
-
-  
-    btnFlash(randBtn);  
+async function nextLevel() {
+    userSequence.length = 0;
+    level += 1;
+    const nextColor = colors[Math.floor(Math.random() * colors.length)];
+    gameSequence.push(nextColor);
+    statusText.textContent = `Level ${level}: watch carefully.`;
+    await wait(450);
+    await playSequence();
 }
 
-
-function checkAns(idx) {
-
-    if (userseq[idx] === gamseq[idx]) {
-
-        if (userseq.length === gamseq.length) {
-            setTimeout(levelup, 1000);
-        }
-
-    } else {
-
-        h2.innerHTML = `Game is over! Your score was <b>${level}</b>`;
-
-        document.querySelector("body").style.backgroundColor = "red";
-
-        setTimeout(function () {
-            document.querySelector("body").style.backgroundColor = "white";
-        }, 150);
-
-        startBtn.style.display = "inline-block";
-
-        reset();
-    }
-}
-// function checkAns(idx){
-//    if (userseq[idx] === gamseq[idx]){
-//       if(userseq.length === gamseq.length){
-//         setTimeout(levelup , 1000);
-//       }
-//    } else{
-//     h2.innerHTML= `Game is over!  your score was <b> ${level} </b> <br>Press any key to restart`;
-//     document.querySelector("body").style.borderColor = "red";
-//     setTimeout(function () {
-//            document.querySelector("body").style.backgroundColor = "white";
- 
-//     },150);
-//     reset();
-//    }  
-// }
-
-function btnPress(){
-    let btn = this;
-    userflash(btn);
-
-    let usercolor = btn.getAttribute("id");
-    userseq.push(usercolor); 
-    
-    checkAns(userseq.length -1);
-}
-  let allBtns = document.querySelectorAll(".btn");
-  for (let btn of allBtns){
-    btn.addEventListener("click", btnPress);
-}
-
-function reset(){
+function endGame() {
     started = false;
-    gamseq = [];
-    userseq = [];
-    level = 0; 
+    isShowingSequence = false;
+    statusText.textContent = `Game over. Your score was ${level}. Press Start Again to play.`;
+    startButton.textContent = "Start Again";
+    startButton.hidden = false;
 }
-let menuBtn = document.querySelector("#menuBtn");
-let howToPlay = document.querySelector("#howToPlay");
 
-menuBtn.addEventListener("click", function () {
+function handlePlayerMove(event) {
+    if (!started || isShowingSequence) return;
 
-    howToPlay.classList.toggle("show");
+    const selectedColor = event.currentTarget.id;
+    const expectedColor = gameSequence[userSequence.length];
 
+    flashButton(event.currentTarget, "userflash", 180);
+    userSequence.push(selectedColor);
+
+    if (selectedColor !== expectedColor) {
+        endGame();
+        return;
+    }
+
+    if (userSequence.length === gameSequence.length) {
+        statusText.textContent = `Correct! Get ready for level ${level + 1}.`;
+        window.setTimeout(nextLevel, 850);
+    }
+}
+
+startButton.addEventListener("click", startGame);
+
+gameButtons.forEach(button => {
+    button.addEventListener("click", handlePlayerMove);
+});
+
+menuButton.addEventListener("click", () => {
+    const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+    menuButton.setAttribute("aria-expanded", String(!isOpen));
+    menuButton.setAttribute("aria-label", isOpen ? "Open game instructions" : "Close game instructions");
+    instructions.hidden = isOpen;
+    instructions.setAttribute("aria-hidden", String(isOpen));
 });
